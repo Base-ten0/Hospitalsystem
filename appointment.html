@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - Hospital Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Hospital Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+                <li><a href="patients.html">Patients</a></li>
+                <li><a href="doctors.html">Doctors</a></li>
+                <li><a href="billing.html">Billing</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="appointment-form">
+            <h2>Book an Appointment</h2>
+            <form id="appointmentForm">
+                <label for="patientName">Patient Name:</label>
+                <input type="text" id="patientName" name="patientName" required>
+
+                <label for="patientEmail">Email:</label>
+                <input type="email" id="patientEmail" name="patientEmail" required>
+
+                <label for="patientPhone">Phone:</label>
+                <input type="tel" id="patientPhone" name="patientPhone" required>
+
+                <label for="doctorType">Select Doctor Type:</label>
+                <select id="doctorType" name="doctorType" required>
+                    <option value="">Choose a doctor type</option>
+                    <!-- Doctor type options will be populated by JavaScript -->
+                </select>
+
+                <label for="appointmentDate">Appointment Date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" required>
+
+                <label for="appointmentTime">Appointment Time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" required>
+
+                <label for="reason">Reason for Visit:</label>
+                <textarea id="reason" name="reason" rows="4" required></textarea>
+
+                <button type="submit">Book Appointment</button>
+            </form>
+            <div id="confirmationMessage" style="display: none;">
+                <p>Appointment booked successfully! We will contact you soon.</p>
+            </div>
+            <div id="paymentForm" style="display: none;">
+                <h3>Payment Details</h3>
+                <form id="paymentFormData">
+                    <label for="paymentMethod">Payment Method:</label>
+                    <select id="paymentMethod" name="paymentMethod" required>
+                        <option value="">Select Payment Method</option>
+                        <option value="MTN">MTN</option>
+                        <option value="Orange">Orange</option>
+                        <option value="Credit Card">Credit Card</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+
+                    <div id="cardFields" style="display: none;">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" id="cardNumber" name="cardNumber">
+
+                        <label for="expiryDate">Expiry Date (MM/YY):</label>
+                        <input type="text" id="expiryDate" name="expiryDate">
+
+                        <label for="cvv">CVV:</label>
+                        <input type="text" id="cvv" name="cvv">
+                    </div>
+
+                    <div id="mobileFields" style="display: none;">
+                        <div style="background-color: #f0f8ff; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="margin-top: 0; color: #333;">Mobile Money Payment Details</h4>
+                            <p><strong>Phone Number:</strong> 652628916</p>
+                            <p><strong>Name:</strong> SEBASTIEN OTANG INYANG</p>
+                            <p style="color: #666; font-size: 14px;">Please send the payment amount (2000) to the above number using your mobile money service.</p>
+                        </div>
+                        <label for="phoneNumber">Your Phone Number (for confirmation):</label>
+                        <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
+                    </div>
+
+                    <label for="amount">Amount:</label>
+                    <input type="text" id="amount" name="amount" value="100.00" readonly>
+
+                    <button type="submit">Pay Now</button>
+                </form>
+            </div>
+            <div id="receipt" style="display: none;">
+                <h3>Appointment Receipt</h3>
+                <p id="receiptDetails"></p>
+                <button onclick="printReceipt()">Print Receipt</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🏥 SOLIDARITY Hospital</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="appointment.html">Appointments</a>
+                <a href="billing.html">Billing</a>
+                <a href="patients.html">Patients</a>
+                <a href="doctors.html">Doctors</a>
+            </div>
+            <div class="footer-contact">
+                <p>📞 +1 (555) 123-4567</p>
+                <p>📧 info@solidarityhospital.com</p>
+                <p>📍 123 Health Street, Medical City</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SOLIDARITY Hospital Management System. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

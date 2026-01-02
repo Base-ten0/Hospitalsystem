@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #e9ecef;
+        }
+
+        .feature h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        #welcome {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #welcome h2 {
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        #welcome p {
+            color: #666;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="about.html">ℹ️ About</a></li>
+                <li><a href="appointment.html">📅 Book Appointment</a></li>
+                <li id="patientsNav" style="display: none;"><a href="patients.html">👥 Patients</a></li>
+                <li id="doctorsNav" style="display: none;"><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+                <li><a href="billing.html">💰 Billing</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div style="text-align: center; padding: 40px 20px; margin-bottom: 40px;">
+            <h1 style="font-size: 3rem; margin: 0; color: #007bff;"><marquee>🏥 SOLIDARITY HOSPITAL MANAGEMENT SYSTEM</marquee></h1>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🏥 SOLIDARITY Hospital</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="appointment.html">Appointments</a>
+                <a href="billing.html">Billing</a>
+                <a href="patients.html">Patients</a>
+                <a href="doctors.html">Doctors</a>
+            </div>
+            <div class="footer-contact">
+                <p>📞 +1 (555) 123-4567</p>
+                <p>📧 info@solidarityhospital.com</p>
+                <p>📍 123 Health Street, Medical City</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SOLIDARITY Hospital Management System. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+    <script>
+        // Show/hide navigation based on user role
+        const userRole = getCurrentUserRole();
+        if (userRole === 'admin') {
+            const patientsNav = document.getElementById('patientsNav');
+            const doctorsNav = document.getElementById('doctorsNav');
+            if (patientsNav) patientsNav.style.display = 'block';
+            if (doctorsNav) doctorsNav.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
