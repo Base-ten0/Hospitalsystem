@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +9,7 @@
 </head>
 <body>
     <header>
+        <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
         <h1>Hospital Management System</h1>
         <nav>
             <ul>
@@ -23,14 +25,14 @@
         <section id="appointment-form">
             <h2>Book an Appointment</h2>
             <form id="appointmentForm">
-                <label for="patientName">Patient Name:</label>
-                <input type="text" id="patientName" name="patientName" required>
+                <label for="patientName">Enter your name:</label>
+                <input type="text" id="patientName" name="patientName" placeholder="Enter your full name" required>
 
-                <label for="patientEmail">Email:</label>
-                <input type="email" id="patientEmail" name="patientEmail" required>
+                <label for="patientEmail">Enter your email:</label>
+                <input type="email" id="patientEmail" name="patientEmail" placeholder="Enter your email address" required>
 
                 <label for="patientPhone">Phone:</label>
-                <input type="tel" id="patientPhone" name="patientPhone" required>
+                <input type="tel" id="patientPhone" name="patientPhone" placeholder="Enter your phone number" required>
 
                 <label for="doctorType">Select Doctor Type:</label>
                 <select id="doctorType" name="doctorType" required>
@@ -38,14 +40,14 @@
                     <!-- Doctor type options will be populated by JavaScript -->
                 </select>
 
-                <label for="appointmentDate">Appointment Date:</label>
-                <input type="date" id="appointmentDate" name="appointmentDate" required>
+                <label for="appointmentDate">Enter your date:</label>
+                <input type="date" id="appointmentDate" name="appointmentDate" placeholder="Enter your preferred date" required>
 
-                <label for="appointmentTime">Appointment Time:</label>
-                <input type="time" id="appointmentTime" name="appointmentTime" required>
+                <label for="appointmentTime">Enter your time:</label>
+                <input type="time" id="appointmentTime" name="appointmentTime" placeholder="Enter your preferred time" required>
 
                 <label for="reason">Reason for Visit:</label>
-                <textarea id="reason" name="reason" rows="4" required></textarea>
+                <textarea id="reason" name="reason" rows="4" placeholder="Describe the reason for your visit" required></textarea>
 
                 <button type="submit">Book Appointment</button>
             </form>
@@ -76,11 +78,11 @@
                     </div>
 
                     <div id="mobileFields" style="display: none;">
-                        <div style="background-color: #f0f8ff; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
-                            <h4 style="margin-top: 0; color: #333;">Mobile Money Payment Details</h4>
+                        <div style="background-color: blue; padding: 15px; border-radius: 5px; border: 1px solid #ddd;">
+                            <h4 style="margin-top: 0; color: white;">Mobile Money Payment Details</h4>
                             <p><strong>Phone Number:</strong> 652628916</p>
                             <p><strong>Name:</strong> SEBASTIEN OTANG INYANG</p>
-                            <p style="color: #666; font-size: 14px;">Please send the payment amount (2000) to the above number using your mobile money service.</p>
+                            <p style="color: white; font-size: 14px;">Please send the payment amount (2000) to the above number using your mobile money service.</p>
                         </div>
                         <label for="phoneNumber">Your Phone Number (for confirmation):</label>
                         <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" required>
@@ -110,9 +112,9 @@
                 <a href="doctors.html">Doctors</a>
             </div>
             <div class="footer-contact">
-                <p>📞 +1 (555) 123-4567</p>
-                <p>📧 info@solidarityhospital.com</p>
-                <p>📍 123 Health Street, Medical City</p>
+                <p>📞 652628915</p>
+                <p>📧 otangdesmond55@gmail.com</p>
+                <p>📍 Molyko Buea </p>
             </div>
         </div>
         <div class="footer-bottom">

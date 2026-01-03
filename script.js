@@ -877,9 +877,7 @@ function handleLogin(e) {
         }));
 
         showLoginMessage('Login successful! Redirecting...', 'success');
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 2000);
+        window.location.href = 'index.html';
     } else {
         showLoginMessage('Invalid username, password, or role. Please try again.', 'error');
     }
@@ -922,9 +920,7 @@ function handleRegistration(e) {
     }));
 
     showLoginMessage('Account created successfully! Redirecting...', 'success');
-    setTimeout(() => {
-        window.location.href = 'index.html';
-    }, 2000);
+    window.location.href = 'index.html';
 }
 
 function authenticateUser(username, password, role) {

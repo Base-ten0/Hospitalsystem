@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #white(260, 10%, 94%) 100%);
+            background: linear-gradient(135deg, #667eea 0%, white 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -31,8 +31,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('hs.jpg') center/cover no-repeat;
-            opacity: 0.1;
+            background: url('base.jpg') center/cover no-repeat;
+            opacity: 0.3;
             z-index: -1;
         }
 
@@ -417,14 +417,89 @@
                 justify-content: center;
             }
         }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px 20px;
+                margin: 10px;
+                max-width: none;
+            }
+
+            .hospital-name {
+                font-size: 24px;
+            }
+
+            .hospital-tagline {
+                font-size: 16px;
+            }
+
+            .auth-toggle {
+                margin-bottom: 20px;
+            }
+
+            .tab-btn {
+                padding: 10px 15px;
+                font-size: 12px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 15px 18px;
+                font-size: 14px;
+            }
+
+            .login-btn {
+                padding: 15px 18px;
+                font-size: 16px;
+            }
+
+            .demo-credentials {
+                padding: 20px;
+            }
+
+            .demo-credentials h4 {
+                font-size: 16px;
+            }
+
+            .demo-credentials p {
+                font-size: 12px;
+            }
+
+            .footer-content {
+                padding: 0 10px;
+            }
+
+            .footer-logo {
+                font-size: 20px;
+            }
+
+            .footer-links {
+                gap: 15px;
+            }
+
+            .footer-contact p {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
+    <header>
+        <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
+        <h1>Hospital Management System</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="appointment.html">Book Appointment</a></li>
+                <li><a href="billing.html">Billing</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="login-wrapper">
         <div class="login-container">
+            <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo" style="width: 80px; height: 80px; margin: 0 auto 20px; display: block;"></a>
             <div class="hospital-logo">🏥</div>
-            <h1 class="hospital-name">SOLIDARITY Hospital</h1>
-            <p class="hospital-tagline">Management System</p>
+            <h1 class="hospital-name">SOLIDARITY MANAGEMENT SYSTEM</h1>
 
             <div class="auth-toggle">
                 <button id="loginTab" class="tab-btn active">🔐 Login</button>
@@ -505,9 +580,9 @@
                 <a href="doctors.html">Doctors</a>
             </div>
             <div class="footer-contact">
-                <p>📞 +1 (555) 123-4567</p>
-                <p>📧 info@solidarityhospital.com</p>
-                <p>📍 123 Health Street, Medical City</p>
+                <p>📞 652628916</p>
+                <p>📧 otangdesmond55@gmail.com</p>
+                <p>📍 Molyko Buea</p>
             </div>
         </div>
         <div class="footer-bottom">
