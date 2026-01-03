@@ -48,13 +48,30 @@
             margin: 0 auto 30px;
             line-height: 1.6;
         }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+            margin: 50px 0;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
     </style>
 </head>
 <body>
     <header>
         <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
         <h1>Hospital Management System</h1>
-        <nav>
+        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <nav id="navMenu">
             <ul>
                 <li><a href="index.html">🏠 Home</a></li>
                 <li><a href="about.html">ℹ️ About</a></li>
@@ -66,6 +83,7 @@
         </nav>
     </header>
     <main>
+        <div class="marquee">🏥 SOLIDARITY MANAGEMENT SYSTEM</div>
     </main>
     <footer>
         <div class="footer-content">
@@ -97,6 +115,13 @@
             if (patientsNav) patientsNav.style.display = 'block';
             if (doctorsNav) doctorsNav.style.display = 'block';
         }
+
+        // Hamburger menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navMenu = document.getElementById('navMenu');
+        hamburgerBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+        });
     </script>
 </body>
 </html>

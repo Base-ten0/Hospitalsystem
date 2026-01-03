@@ -52,13 +52,25 @@
         p {
             color: #007bff;
         }
+
+        .marquee {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: marquee 15s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
     </style>
 </head>
 <body>
     <header>
         <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
         <h1>Hospital Management System</h1>
-        <nav>
+       
+        <nav id="navMenu">
             <ul>
                 <li><a href="index.html">🏠 Home</a></li>
                 <li><a href="about.html">ℹ️ About</a></li>
@@ -72,7 +84,7 @@
     <main>
         <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #007bff 0%, #007bff 100%); color: white; margin-bottom: 40px;">
             <h1 style="font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px white;(0,0,0,0.3);">SOLIDARITY HOSPITAL MANAGEMENT SYSTEM</h1>
-            <p style="font-size: 1.2rem; margin-top: 10px; opacity: 0.9;">Excellence in Healthcare • Compassion in Care • Innovation in Medicine</p>
+            <p class="marquee" style="font-size: 1.2rem; margin-top: 10px; opacity: 0.9;">Excellence in Healthcare • Compassion in Care • Innovation in Medicine</p>
         </div>
 
         <section id="welcome">

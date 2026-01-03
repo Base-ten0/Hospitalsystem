@@ -1,11 +1,5 @@
-# TODO for Logo Addition to All Pages and Header Consistency
+# TODO: Remove Three-Dot Menu
 
-- [x] Add logo to index.html header (top left, linked to index.html)
-- [x] Add h1 "Hospital Management System" to index.html header to match appointment.html size
-- [x] Add logo to billing.html header
-- [x] Add logo to login.html header
-- [x] Add logo to about.html header
-- [x] Add logo to patients.html header
-- [x] Add logo to doctors.html header
-- [x] Add logo to sy.html header
-- [x] Test all pages for logo and header consistency
+- [ ] Remove the three-dot button and dropdown menu from index.html
+- [ ] Remove the JavaScript code for three-dot menu toggle in index.html
+- [ ] Remove the CSS styles for .three-dot-menu and .dropdown-menu from style.css

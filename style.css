@@ -23,6 +23,7 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
+    position: relative;
 }
 
 header h1 {
@@ -287,4 +288,6 @@ footer {
     .footer-bottom p {
         font-size: 0.8rem;
     }
+
+
 }
