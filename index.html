@@ -70,7 +70,8 @@
     <header>
         <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
         <h1>Hospital Management System</h1>
-        <button class="hamburger" id="hamburgerBtn">☰</button>
+        <button id="hamburgerMenu">☰</button>
+       
         <nav id="navMenu">
             <ul>
                 <li><a href="index.html">🏠 Home</a></li>
@@ -117,11 +118,13 @@
         }
 
         // Hamburger menu toggle
-        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const hamburgerBtn = document.getElementById('hamburgerMenu');
         const navMenu = document.getElementById('navMenu');
-        hamburgerBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-        });
+        if (hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                navMenu.querySelector('ul').classList.toggle('show');
+            });
+        }
     </script>
 </body>
 </html>

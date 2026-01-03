@@ -69,7 +69,8 @@
     <header>
         <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
         <h1>Hospital Management System</h1>
-       
+        <button id="hamburgerMenu">☰</button>
+
         <nav id="navMenu">
             <ul>
                 <li><a href="index.html">🏠 Home</a></li>
@@ -83,7 +84,7 @@
     </header>
     <main>
         <div style="text-align: center; padding: 40px 20px; background: linear-gradient(135deg, #007bff 0%, #007bff 100%); color: white; margin-bottom: 40px;">
-            <h1 style="font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px white;(0,0,0,0.3);">SOLIDARITY HOSPITAL MANAGEMENT SYSTEM</h1>
+            <h1 style="font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">SOLIDARITY HOSPITAL MANAGEMENT SYSTEM</h1>
             <p class="marquee" style="font-size: 1.2rem; margin-top: 10px; opacity: 0.9;">Excellence in Healthcare • Compassion in Care • Innovation in Medicine</p>
         </div>
 
@@ -301,6 +302,15 @@
             const doctorsNav = document.getElementById('doctorsNav');
             if (patientsNav) patientsNav.style.display = 'block';
             if (doctorsNav) doctorsNav.style.display = 'block';
+        }
+
+        // Hamburger menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerMenu');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                navMenu.querySelector('ul').classList.toggle('show');
+            });
         }
     </script>
 </body>

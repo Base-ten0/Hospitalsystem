@@ -1,5 +1,7 @@
-# TODO: Remove Three-Dot Menu
-
-- [ ] Remove the three-dot button and dropdown menu from index.html
-- [ ] Remove the JavaScript code for three-dot menu toggle in index.html
-- [ ] Remove the CSS styles for .three-dot-menu and .dropdown-menu from style.css
+- [x] Add hamburger menu button and nav ID to doctors.html
+- [x] Add hamburger menu button and nav ID to billing.html
+- [x] Add hamburger menu button and nav ID to patients.html
+- [x] Add hamburger menu button and nav ID to appointment.html
+- [x] Add hamburger menu button and nav ID to about.html
+- [x] Add hamburger toggle script to each page
+- [x] Standardize hamburger menu toggle scripts across all pages
