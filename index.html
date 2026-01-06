@@ -64,6 +64,74 @@
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
+
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            gap: 40px;
+        }
+
+        .hero-content {
+            flex: 1;
+            color: white;
+            background: linear-gradient(135deg, rgba(0, 123, 255, 0.8) 0%, rgba(0, 86, 179, 0.8) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 123, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: left;
+        }
+
+        .hero-image {
+            flex: 1;
+            max-width: 500px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .hero-content h2 {
+            margin: 0 0 15px 0;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .hero-content p {
+            margin: 0;
+            font-size: 1.3rem;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+
+            .hero-content {
+                text-align: center;
+                padding: 30px 20px;
+            }
+
+            .hero-content h2 {
+                font-size: 2.2rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .hero-image {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
@@ -71,7 +139,6 @@
         <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
         <h1>Hospital Management System</h1>
         <button id="hamburgerMenu">☰</button>
-       
         <nav id="navMenu">
             <ul>
                 <li><a href="index.html">🏠 Home</a></li>
@@ -82,13 +149,20 @@
                 <li><a href="billing.html">💰 Billing</a></li>
             </ul>
         </nav>
-    </header>
+    </header>  
     <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Welcome to Solidarity Hospital</h2>
+                <p>Your health is our priority. Experience quality care and advanced management.</p>
+            </div>
+            <img src="TEM.jpg" alt="Hospital Image" class="hero-image">
+        </section>
         <div class="marquee">🏥 SOLIDARITY MANAGEMENT SYSTEM</div>
     </main>
     <footer>
         <div class="footer-content">
-            <div class="footer-logo">🏥 SOLIDARITY Hospital</div>
+            <div class="footer-logo">🏥 SOLIDARITY HOSPITAL</div>
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="appointment.html">Appointments</a>
@@ -104,7 +178,7 @@
         </div>
         <div class="footer-bottom">
             <p>&copy; 2024 SOLIDARITY Hospital Management System. All rights reserved.</p>
-        </div>
+        </div> 
     </footer>
     <script src="script.js"></script>
     <script>

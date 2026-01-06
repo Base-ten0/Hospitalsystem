@@ -570,7 +570,7 @@ footer {
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0.5), #fff);
+        background: linear-gradient(90deg, #fff, #007bff (255, 255, 255, 0.5), #fff);
     }
 
     .footer-content {
