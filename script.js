@@ -180,6 +180,17 @@ function handlePaymentSubmit(e) {
         return;
     }
 
+    // For mobile payments, show confirmation before proceeding
+    if (paymentData.paymentMethod === 'MTN' || paymentData.paymentMethod === 'Orange') {
+        const confirmationMessage = `You are about to simulate a payment of ${paymentData.amount} FCFA using ${paymentData.paymentMethod}.\n\nIn this demo, no real money will be withdrawn. The payment will be recorded as successful for demonstration purposes.\n\nDo you want to proceed?`;
+        if (!confirm(confirmationMessage)) {
+            return; // Cancel payment if not confirmed
+        }
+
+        // Simulate payment processing
+        alert(`Payment simulation completed. ${paymentData.amount} FCFA would be withdrawn from your phone number ${paymentData.phoneNumber} and sent to the hospital's MoMo account (652628916).\n\nA confirmation message would be sent to your phone.`);
+    }
+
     // Authorize payment before proceeding
     authorizePayment(paymentData).then(isAuthorized => {
         if (isAuthorized) {
