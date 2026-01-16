@@ -1,6 +1,6 @@
- // script.js
+    // script.js
 
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
     // Check authentication first
     if (!isAuthenticated()) {
         if (window.location.pathname.endsWith('login.html')) {
@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
     } else {
+        // If authenticated and on login page, redirect to index
+        if (window.location.pathname.endsWith('login.html')) {
+            window.location.href = 'index.html';
+            return;
+        }
+
         // Initialize different page functionalities based on role
         const userRole = getCurrentUserRole();
 
@@ -852,6 +858,12 @@ function initRegistrationPage() {
     if (roleSelect) {
         roleSelect.addEventListener('change', toggleDoctorFields);
     }
+
+    // Initialize forgot password link
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    if (forgotPasswordLink) {
+        forgotPasswordLink.addEventListener('click', handleForgotPassword);
+    }
 }
 
 function toggleDoctorFields() {
@@ -987,6 +999,8 @@ function handleRegistration(e) {
     setTimeout(() => {
         if (registrationData.role === 'doctor') {
             window.location.href = 'doctor-dashboard.html';
+        } else if (registrationData.role === 'admin') {
+            window.location.href = 'patients.html';
         } else {
             window.location.href = 'index.html';
         }
@@ -1007,12 +1021,12 @@ function loadUsers() {
     // Initialize default users if none exist
     if (Object.keys(users).length === 0) {
         users = {
-            'admin': {
+            'admin@solidarityhospital.com': {
                 password: 'admin123',
                 role: 'admin',
                 createdAt: new Date().toISOString()
             },
-            'user': {
+            'user@solidarityhospital.com': {
                 password: 'user123',
                 role: 'user',
                 createdAt: new Date().toISOString()
@@ -1049,6 +1063,15 @@ function initLogout() {
 function logout() {
     localStorage.removeItem('currentUser');
     window.location.href = 'login.html';
+}
+
+function handleForgotPassword(e) {
+    e.preventDefault();
+    const email = prompt('Please enter your email address:');
+    if (email) {
+        // In a real application, this would send a password reset email
+        alert('Password reset instructions have been sent to your email address. Please check your inbox.');
+    }
 }
 
 function showLoginMessage(message, type) {
