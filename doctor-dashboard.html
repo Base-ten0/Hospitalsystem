@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - SOLIDARITY Hospital</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .dashboard-header {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .dashboard-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .dashboard-header p {
+            margin: 0.5rem 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            border-left: 4px solid #007bff;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            margin: 0 0 0.5rem;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .stat-card .number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .appointments-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            margin-bottom: 2rem;
+        }
+
+        .appointments-section h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 0.5rem;
+        }
+
+        .appointment-card {
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+        }
+
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .appointment-header h3 {
+            margin: 0;
+            color: #007bff;
+        }
+
+        .appointment-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-accepted {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-declined {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .status-rescheduled {
+            background: #e2e3e5;
+            color: #383d41;
+        }
+
+        .appointment-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .appointment-detail {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .appointment-detail label {
+            font-weight: 600;
+            color: #495057;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .appointment-detail span {
+            color: #6c757d;
+        }
+
+        .appointment-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-accept {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-accept:hover {
+            background: #218838;
+            transform: translateY(-1px);
+        }
+
+        .btn-decline {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-decline:hover {
+            background: #c82333;
+            transform: translateY(-1px);
+        }
+
+        .btn-reschedule {
+            background: #ffc107;
+            color: #212529;
+        }
+
+        .btn-reschedule:hover {
+            background: #e0a800;
+            transform: translateY(-1px);
+        }
+
+        .reschedule-form {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .reschedule-form.show {
+            display: block;
+        }
+
+        .reschedule-form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .reschedule-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .reschedule-form input,
+        .reschedule-form select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .reschedule-form .form-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .no-appointments {
+            text-align: center;
+            padding: 3rem;
+            color: #6c757d;
+        }
+
+        .no-appointments h3 {
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .appointment-details {
+                grid-template-columns: 1fr;
+            }
+
+            .appointment-actions {
+                justify-content: center;
+            }
+
+            .reschedule-form .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html"><img src="logo.png" alt="Hospital Logo" class="logo"></a>
+        <h1>Hospital Management System</h1>
+        <button id="hamburgerMenu">☰</button>
+        <nav id="navMenu">
+            <ul>
+                <li><a href="index.html">🏠 Home</a></li>
+                <li><a href="about.html">ℹ️ About</a></li>
+                <li><a href="appointment.html">📅 Book Appointment</a></li>
+                <li id="patientsNav" style="display: none;"><a href="patients.html">👥 Patients</a></li>
+                <li id="doctorsNav" style="display: none;"><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+                <li><a href="billing.html">💰 Billing</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="dashboard-header">
+            <h1>👨‍⚕️ Doctor Dashboard</h1>
+            <p>Welcome back, Dr. [Doctor Name]. Manage your appointments and schedule efficiently.</p>
+        </section>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Today's Appointments</h3>
+                <div class="number" id="todayAppointments">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Requests</h3>
+                <div class="number" id="pendingAppointments">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>This Week</h3>
+                <div class="number" id="weekAppointments">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Completion Rate</h3>
+                <div class="number" id="completionRate">0%</div>
+            </div>
+        </div>
+
+        <section class="appointments-section">
+            <h2>📅 Appointment Management</h2>
+            <div id="appointmentsList">
+                <!-- Appointments will be loaded here -->
+            </div>
+            <div id="noAppointments" class="no-appointments" style="display: none;">
+                <h3>No Appointments Found</h3>
+                <p>You currently have no appointments scheduled. New appointments will appear here when patients book with you.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">🏥 SOLIDARITY Hospital</div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="appointment.html">Appointments</a>
+                <a href="billing.html">Billing</a>
+                <a href="patients.html">Patients</a>
+                <a href="doctors.html">Doctors</a>
+            </div>
+            <div class="footer-contact">
+                <p>📞 652628916</p>
+                <p>📧 otangdesmond55@gmail.com</p>
+                <p>📍 Molyko Buea</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 SOLIDARITY Hospital Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Doctor Dashboard Functionality
+        let currentDoctor = null;
+
+        // Initialize dashboard
+        function initDoctorDashboard() {
+            // Check if doctor is logged in
+            const loggedInDoctor = getLoggedInDoctor();
+            if (!loggedInDoctor) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            currentDoctor = loggedInDoctor;
+
+            // Update header with doctor name
+            const headerElement = document.querySelector('.dashboard-header p');
+            headerElement.textContent = `Welcome back, Dr. ${currentDoctor.firstName} ${currentDoctor.lastName}. Manage your appointments and schedule efficiently.`;
+
+            // Load appointments
+            loadDoctorAppointments();
+
+            // Update statistics
+            updateDashboardStats();
+        }
+
+        // Load doctor's appointments
+        function loadDoctorAppointments() {
+            const appointments = getDoctorAppointments(currentDoctor.id);
+            const appointmentsList = document.getElementById('appointmentsList');
+            const noAppointments = document.getElementById('noAppointments');
+
+            if (appointments.length === 0) {
+                appointmentsList.innerHTML = '';
+                noAppointments.style.display = 'block';
+                return;
+            }
+
+            noAppointments.style.display = 'none';
+            appointmentsList.innerHTML = '';
+
+            appointments.forEach(appointment => {
+                const appointmentCard = createAppointmentCard(appointment);
+                appointmentsList.appendChild(appointmentCard);
+            });
+        }
+
+        // Create appointment card
+        function createAppointmentCard(appointment) {
+            const card = document.createElement('div');
+            card.className = 'appointment-card';
+
+            const statusClass = getStatusClass(appointment.status);
+
+            card.innerHTML = `
+                <div class="appointment-header">
+                    <h3>Appointment #${appointment.id}</h3>
+                    <span class="appointment-status ${statusClass}">${appointment.status}</span>
+                </div>
+                <div class="appointment-details">
+                    <div class="appointment-detail">
+                        <label>Patient Name:</label>
+                        <span>${appointment.patientName}</span>
+                    </div>
+                    <div class="appointment-detail">
+                        <label>Date & Time:</label>
+                        <span>${formatDateTime(appointment.date, appointment.time)}</span>
+                    </div>
+                    <div class="appointment-detail">
+                        <label>Reason:</label>
+                        <span>${appointment.reason}</span>
+                    </div>
+                    <div class="appointment-detail">
+                        <label>Contact:</label>
+                        <span>${appointment.patientEmail} | ${appointment.patientPhone}</span>
+                    </div>
+                </div>
+                <div class="appointment-actions">
+                    ${getAppointmentActions(appointment)}
+                </div>
+                <div class="reschedule-form" id="reschedule-${appointment.id}">
+                    <div class="form-group">
+                        <label for="newDate-${appointment.id}">New Date:</label>
+                        <input type="date" id="newDate-${appointment.id}" min="${getTodayDate()}">
+                    </div>
+                    <div class="form-group">
+                        <label for="newTime-${appointment.id}">New Time:</label>
+                        <input type="time" id="newTime-${appointment.id}">
+                    </div>
+                    <div class="form-actions">
+                        <button class="btn-action btn-accept" onclick="confirmReschedule(${appointment.id})">Confirm Reschedule</button>
+                        <button class="btn-action btn-decline" onclick="cancelReschedule(${appointment.id})">Cancel</button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        // Get appointment actions based on status
+        function getAppointmentActions(appointment) {
+            if (appointment.status === 'accepted') {
+                return `
+                    <button class="btn-action btn-reschedule" onclick="showRescheduleForm(${appointment.id})">Reschedule</button>
+                `;
+            } else if (appointment.status === 'pending') {
+                return `
+                    <button class="btn-action btn-accept" onclick="acceptAppointment(${appointment.id})">Accept</button>
+                    <button class="btn-action btn-decline" onclick="declineAppointment(${appointment.id})">Decline</button>
+                    <button class="btn-action btn-reschedule" onclick="showRescheduleForm(${appointment.id})">Suggest Time</button>
+                `;
+            } else if (appointment.status === 'rescheduled') {
+                return `
+                    <button class="btn-action btn-accept" onclick="acceptAppointment(${appointment.id})">Accept New Time</button>
+                    <button class="btn-action btn-decline" onclick="declineAppointment(${appointment.id})">Decline</button>
+                `;
+            }
+            return '';
+        }
+
+        // Get status class for styling
+        function getStatusClass(status) {
+            switch (status.toLowerCase()) {
+                case 'pending': return 'status-pending';
+                case 'accepted': return 'status-accepted';
+                case 'declined': return 'status-declined';
+                case 'rescheduled': return 'status-rescheduled';
+                default: return 'status-pending';
+            }
+        }
+
+        // Format date and time
+        function formatDateTime(date, time) {
+            const dateObj = new Date(date + 'T' + time);
+            return dateObj.toLocaleDateString() + ' at ' + dateObj.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        // Get today's date in YYYY-MM-DD format
+        function getTodayDate() {
+            const today = new Date();
+            return today.toISOString().split('T')[0];
+        }
+
+        // Appointment action functions
+        function acceptAppointment(appointmentId) {
+            if (confirm('Are you sure you want to accept this appointment?')) {
+                updateAppointmentStatus(appointmentId, 'accepted');
+                loadDoctorAppointments();
+                updateDashboardStats();
+                alert('Appointment accepted successfully!');
+            }
+        }
+
+        function declineAppointment(appointmentId) {
+            const reason = prompt('Please provide a reason for declining this appointment:');
+            if (reason !== null) {
+                updateAppointmentStatus(appointmentId, 'declined', reason);
+                loadDoctorAppointments();
+                updateDashboardStats();
+                alert('Appointment declined.');
+            }
+        }
+
+        function showRescheduleForm(appointmentId) {
+            const form = document.getElementById(`reschedule-${appointmentId}`);
+            form.classList.toggle('show');
+        }
+
+        function confirmReschedule(appointmentId) {
+            const newDate = document.getElementById(`newDate-${appointmentId}`).value;
+            const newTime = document.getElementById(`newTime-${appointmentId}`).value;
+
+            if (!newDate || !newTime) {
+                alert('Please select both date and time.');
+                return;
+            }
+
+            if (confirm('Are you sure you want to reschedule this appointment?')) {
+                updateAppointmentTime(appointmentId, newDate, newTime);
+                updateAppointmentStatus(appointmentId, 'rescheduled');
+                loadDoctorAppointments();
+                updateDashboardStats();
+                alert('Appointment rescheduled successfully!');
+            }
+        }
+
+        function cancelReschedule(appointmentId) {
+            const form = document.getElementById(`reschedule-${appointmentId}`);
+            form.classList.remove('show');
+        }
+
+        // Update dashboard statistics
+        function updateDashboardStats() {
+            const appointments = getDoctorAppointments(currentDoctor.id);
+            const today = new Date().toDateString();
+
+            let todayCount = 0;
+            let pendingCount = 0;
+            let weekCount = 0;
+            let completedCount = 0;
+
+            appointments.forEach(apt => {
+                const aptDate = new Date(apt.date).toDateString();
+
+                if (aptDate === today) todayCount++;
+                if (apt.status === 'pending') pendingCount++;
+                if (isThisWeek(apt.date)) weekCount++;
+                if (apt.status === 'accepted') completedCount++;
+            });
+
+            document.getElementById('todayAppointments').textContent = todayCount;
+            document.getElementById('pendingAppointments').textContent = pendingCount;
+            document.getElementById('weekAppointments').textContent = weekCount;
+            document.getElementById('completionRate').textContent =
+                appointments.length > 0 ? Math.round((completedCount / appointments.length) * 100) + '%' : '0%';
+        }
+
+        // Check if date is within current week
+        function isThisWeek(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const startOfWeek = new Date(now.setDate(now.getDate() - now.getDay()));
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+
+            return date >= startOfWeek && date <= endOfWeek;
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            logoutDoctor();
+            window.location.href = 'login.html';
+        });
+
+        // Initialize dashboard when page loads
+        document.addEventListener('DOMContentLoaded', initDoctorDashboard);
+
+        // Show/hide navigation based on user role
+        const userRole = getCurrentUserRole();
+        if (userRole === 'doctor') {
+            const patientsNav = document.getElementById('patientsNav');
+            const doctorsNav = document.getElementById('doctorsNav');
+            if (patientsNav) patientsNav.style.display = 'none';
+            if (doctorsNav) doctorsNav.style.display = 'none';
+        }
+
+        // Hamburger menu toggle
+        const hamburgerBtn = document.getElementById('hamburgerMenu');
+        const navMenu = document.getElementById('navMenu');
+        if (hamburgerBtn && navMenu) {

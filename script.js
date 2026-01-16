@@ -1,4 +1,4 @@
-// script.js
+ // script.js
 
 document.addEventListener('DOMContentLoaded', function() {
     // Check authentication first
@@ -846,6 +846,25 @@ function initRegistrationPage() {
     if (registrationForm) {
         registrationForm.addEventListener('submit', handleRegistration);
     }
+
+    // Initialize doctor fields toggle
+    const roleSelect = document.getElementById('regRole');
+    if (roleSelect) {
+        roleSelect.addEventListener('change', toggleDoctorFields);
+    }
+}
+
+function toggleDoctorFields() {
+    const roleSelect = document.getElementById('regRole');
+    const doctorFields = document.getElementById('doctorFields');
+
+    if (roleSelect && doctorFields) {
+        if (roleSelect.value === 'doctor') {
+            doctorFields.style.display = 'block';
+        } else {
+            doctorFields.style.display = 'none';
+        }
+    }
 }
 
 function switchToLogin() {
@@ -888,7 +907,13 @@ function handleLogin(e) {
         }));
 
         showLoginMessage('Login successful! Redirecting...', 'success');
-        window.location.href = 'index.html';
+
+        // Redirect based on role
+        if (loginData.role === 'doctor') {
+            window.location.href = 'doctor-dashboard.html';
+        } else {
+            window.location.href = 'index.html';
+        }
     } else {
         showLoginMessage('Invalid username, password, or role. Please try again.', 'error');
     }
@@ -913,6 +938,15 @@ function handleRegistration(e) {
         return;
     }
 
+    // Additional validation for doctor role
+    if (registrationData.role === 'doctor') {
+        if (!registrationData.firstName || !registrationData.lastName || !registrationData.specialization ||
+            !registrationData.phone || !registrationData.licenseNumber || registrationData.experience === '') {
+            showLoginMessage('Please fill in all doctor information fields.', 'error');
+            return;
+        }
+    }
+
     // Create new user
     users[registrationData.username] = {
         password: registrationData.password,
@@ -923,6 +957,23 @@ function handleRegistration(e) {
     // Save users to localStorage
     localStorage.setItem('users', JSON.stringify(users));
 
+    // If registering as doctor, also add to doctors list
+    if (registrationData.role === 'doctor') {
+        const doctors = loadDoctors();
+        const newDoctor = {
+            id: Date.now(),
+            firstName: registrationData.firstName,
+            lastName: registrationData.lastName,
+            specialization: registrationData.specialization,
+            phone: registrationData.phone,
+            email: registrationData.username,
+            licenseNumber: registrationData.licenseNumber,
+            experience: parseInt(registrationData.experience)
+        };
+        doctors.push(newDoctor);
+        localStorage.setItem('doctors', JSON.stringify(doctors));
+    }
+
     // Auto-login the new user
     localStorage.setItem('currentUser', JSON.stringify({
         username: registrationData.username,
@@ -931,7 +982,15 @@ function handleRegistration(e) {
     }));
 
     showLoginMessage('Account created successfully! Redirecting...', 'success');
-    window.location.href = 'index.html';
+
+    // Redirect based on role
+    setTimeout(() => {
+        if (registrationData.role === 'doctor') {
+            window.location.href = 'doctor-dashboard.html';
+        } else {
+            window.location.href = 'index.html';
+        }
+    }, 1500);
 }
 
 function authenticateUser(username, password, role) {
@@ -1033,4 +1092,91 @@ function authorizePayment(paymentData) {
             }
         }, 2000); // 2 second delay to simulate processing
     });
+}
+
+// Doctor Dashboard Functions
+function getLoggedInDoctor() {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (currentUser.role === 'doctor') {
+        const doctors = loadDoctors();
+        return doctors.find(doctor => doctor.email === currentUser.username) || null;
+    }
+    return null;
+}
+
+function getDoctorAppointments(doctorId) {
+    const appointments = loadAppointments();
+    return appointments.filter(apt => apt.doctorId == doctorId);
+}
+
+function updateAppointmentStatus(appointmentId, status, reason = '') {
+    const appointments = loadAppointments();
+    const appointment = appointments.find(apt => apt.id == appointmentId);
+    if (appointment) {
+        appointment.status = status;
+        if (reason) appointment.declineReason = reason;
+        appointment.updatedAt = new Date().toISOString();
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+    }
+}
+
+function updateAppointmentTime(appointmentId, newDate, newTime) {
+    const appointments = loadAppointments();
+    const appointment = appointments.find(apt => apt.id == appointmentId);
+    if (appointment) {
+        appointment.date = newDate;
+        appointment.time = newTime;
+        appointment.status = 'rescheduled';
+        appointment.updatedAt = new Date().toISOString();
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+    }
+}
+
+function logoutDoctor() {
+    localStorage.removeItem('currentUser');
+}
+
+// Modified appointment submission to assign to doctor
+function handleAppointmentSubmit(e) {
+    e.preventDefault();
+
+    const formData = new FormData(e.target);
+    const appointmentData = Object.fromEntries(formData.entries());
+
+    if (!validateAppointmentForm(appointmentData)) {
+        alert('Please fill in all required fields correctly.');
+        return;
+    }
+
+    // Assign appointment to a doctor based on specialization
+    const assignedDoctor = assignAppointmentToDoctor(appointmentData.doctorType);
+    if (!assignedDoctor) {
+        alert('No doctors available for the selected specialization. Please try again later.');
+        return;
+    }
+
+    appointmentData.doctorId = assignedDoctor.id;
+    appointmentData.doctorName = `${assignedDoctor.firstName} ${assignedDoctor.lastName}`;
+    appointmentData.status = 'pending'; // Changed from 'confirmed' to 'pending'
+
+    // Store appointment data temporarily for payment processing
+    window.tempAppointmentData = appointmentData;
+
+    // Hide appointment form and show payment form
+    document.getElementById('appointmentForm').style.display = 'none';
+    document.getElementById('paymentForm').style.display = 'block';
+
+    // Initialize payment form
+    initPaymentForm();
+}
+
+function assignAppointmentToDoctor(specialization) {
+    const doctors = loadDoctors();
+    const availableDoctors = doctors.filter(doctor => doctor.specialization === specialization);
+
+    if (availableDoctors.length === 0) return null;
+
+    // Simple round-robin assignment - in a real app, you'd consider availability, workload, etc.
+    const randomIndex = Math.floor(Math.random() * availableDoctors.length);
+    return availableDoctors[randomIndex];
 }

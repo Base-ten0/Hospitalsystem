@@ -3,5 +3,6 @@
 - [x] Add hamburger menu button and nav ID to patients.html
 - [x] Add hamburger menu button and nav ID to appointment.html
 - [x] Add hamburger menu button and nav ID to about.html
+ - [x] Add hamburger menu button and nav ID to sy.html
 - [x] Add hamburger toggle script to each page
 - [x] Standardize hamburger menu toggle scripts across all pages

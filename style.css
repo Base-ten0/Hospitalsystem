@@ -8,8 +8,8 @@
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
-    color:  white;
-    background-image: url('base_compressed.jpg');
+    color: white;
+    background: #007bff;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,6 @@ header {
     position: sticky;
     top: 0;
     z-index: 1000;
-    position: relative;
 }
 
 header h1 {
@@ -61,17 +60,18 @@ main {
 }
 
 section {
-    background-color: #fff;
+    background-color: #007bff;
     padding: 2rem;
     margin-bottom: 2rem;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e9ecef;
 }
 
 h2 {
-    color: #007bff;
+    color: white;
     margin-bottom: 1rem;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid white;
     padding-bottom: 0.5rem;
 }
 
@@ -459,7 +459,7 @@ footer {
         margin-bottom: 2rem;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        background: rgba(255, 255, 255, 0.95);
+        background: #007bff;
         backdrop-filter: blur(10px);
         border: 1px solid rgba(255, 255, 255, 0.2);
     }
@@ -469,7 +469,7 @@ footer {
         font-weight: 600;
         margin-bottom: 1.5rem;
         line-height: 1.3;
-        color: #2c3e50;
+        color: white;
         letter-spacing: -0.5px;
         position: relative;
         padding-bottom: 0.75rem;
@@ -489,14 +489,14 @@ footer {
     p {
         line-height: 1.7;
         font-size: 1rem;
-        color: #555;
+        color: white;
         margin-bottom: 1rem;
     }
 
     /* Professional mobile forms */
     form {
         gap: 1.5rem;
-        background: #f8f9fa;
+        background: #007bff;
         padding: 1.5rem;
         border-radius: 10px;
         border: 1px solid #e9ecef;
@@ -506,7 +506,7 @@ footer {
         font-size: 1rem;
         font-weight: 600;
         margin-bottom: 0.5rem;
-        color: #2c3e50;
+        color: white;
         display: block;
     }
 
@@ -518,7 +518,8 @@ footer {
         width: 100%;
         box-sizing: border-box;
         transition: all 0.3s ease;
-        background: #fff;
+        background: #007bff;
+        color: white;
         font-family: inherit;
     }
 
@@ -635,7 +636,7 @@ footer {
     .feature {
         padding: 1.5rem;
         border-radius: 10px;
-        background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+        background: white;
         border: 1px solid #e9ecef;
         transition: all 0.3s ease;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
@@ -651,6 +652,10 @@ footer {
         font-weight: 600;
         margin-bottom: 0.75rem;
         color: #007bff;
+    }
+
+    .feature p {
+        color: #333;
     }
 
     /* Professional mobile images */
