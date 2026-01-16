@@ -1,4 +1,4 @@
-    // script.js
+     // script.js
 
 window.addEventListener('load', function() {
     // Check authentication first
@@ -934,12 +934,26 @@ function handleLogin(e) {
 function handleRegistration(e) {
     e.preventDefault();
 
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    if (createAccountBtn) {
+        createAccountBtn.disabled = true;
+        createAccountBtn.textContent = '⏳ Creating Account...';
+    }
+
     const formData = new FormData(e.target);
     const registrationData = Object.fromEntries(formData.entries());
+
+    // Validate password strength
+    if (!validatePasswordStrength(registrationData.password)) {
+        showLoginMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number.', 'error');
+        resetCreateAccountButton();
+        return;
+    }
 
     // Validate password confirmation
     if (registrationData.password !== registrationData.confirmPassword) {
         showLoginMessage('Passwords do not match. Please try again.', 'error');
+        resetCreateAccountButton();
         return;
     }
 
@@ -947,14 +961,16 @@ function handleRegistration(e) {
     const users = loadUsers();
     if (users[registrationData.username]) {
         showLoginMessage('Username already exists. Please choose a different username.', 'error');
+        resetCreateAccountButton();
         return;
     }
 
     // Additional validation for doctor role
     if (registrationData.role === 'doctor') {
         if (!registrationData.firstName || !registrationData.lastName || !registrationData.specialization ||
-            !registrationData.phone || !registrationData.licenseNumber || registrationData.experience === '') {
+            !registrationData.phone || registrationData.experience === '') {
             showLoginMessage('Please fill in all doctor information fields.', 'error');
+            resetCreateAccountButton();
             return;
         }
     }
@@ -979,7 +995,6 @@ function handleRegistration(e) {
             specialization: registrationData.specialization,
             phone: registrationData.phone,
             email: registrationData.username,
-            licenseNumber: registrationData.licenseNumber,
             experience: parseInt(registrationData.experience)
         };
         doctors.push(newDoctor);
@@ -1005,6 +1020,24 @@ function handleRegistration(e) {
             window.location.href = 'index.html';
         }
     }, 1500);
+}
+
+function resetCreateAccountButton() {
+    const createAccountBtn = document.getElementById('createAccountBtn');
+    if (createAccountBtn) {
+        createAccountBtn.disabled = false;
+        createAccountBtn.textContent = '📝 Create Account';
+    }
+}
+
+function validatePasswordStrength(password) {
+    // Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number
+    const minLength = 8;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumbers = /\d/.test(password);
+
+    return password.length >= minLength && hasUpperCase && hasLowerCase && hasNumbers;
 }
 
 function authenticateUser(username, password, role) {
@@ -1075,15 +1108,7 @@ function handleForgotPassword(e) {
 }
 
 function showLoginMessage(message, type) {
-    const messageDiv = document.getElementById('loginMessage');
-    if (messageDiv) {
-        messageDiv.textContent = message;
-        messageDiv.className = type;
-        messageDiv.style.display = 'block';
-        setTimeout(() => {
-            messageDiv.style.display = 'none';
-        }, 5000);
-    }
+    alert(message);
 }
 
 // Payment Authorization Function
