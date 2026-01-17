@@ -85,6 +85,7 @@
                 <li><a href="appointment.html">📅 Book Appointment</a></li>
                 <li id="patientsNav" style="display: none;"><a href="patients.html">👥 Patients</a></li>
                 <li id="doctorsNav" style="display: none;"><a href="doctors.html">👨‍⚕️ Doctors</a></li>
+                <li><a href="#" id="logoutBtn">🚪 Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -306,6 +307,16 @@
         if (hamburgerBtn && navMenu) {
             hamburgerBtn.addEventListener('click', () => {
                 navMenu.querySelector('ul').classList.toggle('show');
+            });
+        }
+
+        // Logout functionality
+        const logoutBtn = document.getElementById('logoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                logout();
+                window.location.href = 'login.html';
             });
         }
     </script>
