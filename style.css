@@ -9,7 +9,8 @@ body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
     color: white;
-    background: #007bff;
+    background: url('back.jpg') no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

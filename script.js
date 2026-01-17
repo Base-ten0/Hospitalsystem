@@ -32,6 +32,7 @@ window.addEventListener('load', function() {
         if (userRole === 'admin') {
             initPatientManagement();
             initDoctorManagement();
+            initAppointmentManagement();
         }
         initLogout();
     }
@@ -78,6 +79,9 @@ function handleAppointmentSubmit(e) {
         alert('Please fill in all required fields correctly.');
         return;
     }
+
+    // Add timestamp for expiration
+    appointmentData.createdAt = new Date().toISOString();
 
     // Store appointment data temporarily for payment processing
     window.tempAppointmentData = appointmentData;
@@ -206,7 +210,7 @@ function handlePaymentSubmit(e) {
             const appointmentData = {
                 ...window.tempAppointmentData,
                 id: appointmentId,
-                status: 'confirmed',
+                status: 'pending', // Keep as pending for doctor approval
                 payment: {
                     ...paymentData,
                     paymentDate: new Date().toISOString(),
@@ -827,6 +831,36 @@ function loadDoctors() {
     return JSON.parse(localStorage.getItem('doctors') || '[]');
 }
 
+// Appointment Management for Admin Dashboard
+function initAppointmentManagement() {
+    displayAllAppointments();
+}
+
+function displayAllAppointments() {
+    const appointmentsTableBody = document.getElementById('appointmentsTableBody');
+    if (!appointmentsTableBody) return;
+
+    const appointments = loadAppointments();
+    const doctors = loadDoctors();
+    appointmentsTableBody.innerHTML = '';
+
+    appointments.forEach(appointment => {
+        const doctor = doctors.find(d => d.id == appointment.doctorId);
+        const doctorName = doctor ? `${doctor.firstName} ${doctor.lastName}` : 'Unassigned';
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${appointment.id}</td>
+            <td>${appointment.patientName}</td>
+            <td>${doctorName}</td>
+            <td>${appointment.appointmentDate} ${appointment.appointmentTime}</td>
+            <td>${appointment.status}</td>
+            <td>${appointment.reason}</td>
+        `;
+        appointmentsTableBody.appendChild(row);
+    });
+}
+
 // Authentication Functions
 function initRegistrationPage() {
     // Initialize tab switching
@@ -1154,7 +1188,13 @@ function getLoggedInDoctor() {
 
 function getDoctorAppointments(doctorId) {
     const appointments = loadAppointments();
-    return appointments.filter(apt => apt.doctorId == doctorId);
+
+    return appointments.filter(apt => {
+        if (apt.doctorId != doctorId) return false;
+
+        // Show all pending appointments for the doctor
+        return apt.status === 'pending' || apt.status === 'rescheduled';
+    });
 }
 
 function updateAppointmentStatus(appointmentId, status, reason = '') {

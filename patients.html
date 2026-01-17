@@ -18,11 +18,32 @@
                 <li><a href="appointment.html">Book Appointment</a></li>
                 <li><a href="patients.html">Patients</a></li>
                 <li><a href="doctors.html">Doctors</a></li>
-                <li><a href="billing.html">Billing</a></li>
             </ul>
         </nav>
     </header>
     <main>
+        <section id="appointment-management">
+            <h2>Appointment Management</h2>
+            <div id="appointmentsList">
+                <h3>All Appointments</h3>
+                <table id="appointmentsTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient Name</th>
+                            <th>Doctor</th>
+                            <th>Date & Time</th>
+                            <th>Status</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentsTableBody">
+                        <!-- Appointment data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
         <section id="patient-management">
             <h2>Patient Management</h2>
             <button id="addPatientBtn">Add New Patient</button>
@@ -94,7 +115,6 @@
             <div class="footer-links">
                 <a href="index.html">Home</a>
                 <a href="appointment.html">Appointments</a>
-                <a href="billing.html">Billing</a>
                 <a href="patients.html">Patients</a>
                 <a href="doctors.html">Doctors</a>
             </div>
@@ -105,7 +125,7 @@
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2024 SOLIDARITY Hospital Management System. All rights reserved.</p>
+            <p>&copy; 2026 SOLIDARITY Hospital Management System. All rights reserved.</p>
         </div>
     </footer>
     <script src="script.js"></script>
