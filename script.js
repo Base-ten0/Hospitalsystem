@@ -831,35 +831,7 @@ function loadDoctors() {
     return JSON.parse(localStorage.getItem('doctors') || '[]');
 }
 
-// Appointment Management for Admin Dashboard
-function initAppointmentManagement() {
-    displayAllAppointments();
-}
 
-function displayAllAppointments() {
-    const appointmentsTableBody = document.getElementById('appointmentsTableBody');
-    if (!appointmentsTableBody) return;
-
-    const appointments = loadAppointments();
-    const doctors = loadDoctors();
-    appointmentsTableBody.innerHTML = '';
-
-    appointments.forEach(appointment => {
-        const doctor = doctors.find(d => d.id == appointment.doctorId);
-        const doctorName = doctor ? `${doctor.firstName} ${doctor.lastName}` : 'Unassigned';
-
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${appointment.id}</td>
-            <td>${appointment.patientName}</td>
-            <td>${doctorName}</td>
-            <td>${appointment.appointmentDate} ${appointment.appointmentTime}</td>
-            <td>${appointment.status}</td>
-            <td>${appointment.reason}</td>
-        `;
-        appointmentsTableBody.appendChild(row);
-    });
-}
 
 // Authentication Functions
 function initRegistrationPage() {
