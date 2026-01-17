@@ -397,7 +397,7 @@
                     </div>
                     <div class="appointment-detail">
                         <label>Date & Time:</label>
-                        <span>${formatDateTime(appointment.date, appointment.time)}</span>
+                        <span>${formatDateTime(appointment.appointmentDate, appointment.appointmentTime)}</span>
                     </div>
                     <div class="appointment-detail">
                         <label>Reason:</label>
@@ -533,11 +533,11 @@
             let completedCount = 0;
 
             appointments.forEach(apt => {
-                const aptDate = new Date(apt.date).toDateString();
+                const aptDate = new Date(apt.appointmentDate).toDateString();
 
                 if (aptDate === today) todayCount++;
                 if (apt.status === 'pending') pendingCount++;
-                if (isThisWeek(apt.date)) weekCount++;
+                if (isThisWeek(apt.appointmentDate)) weekCount++;
                 if (apt.status === 'accepted') completedCount++;
             });
 
@@ -582,3 +582,7 @@
         const hamburgerBtn = document.getElementById('hamburgerMenu');
         const navMenu = document.getElementById('navMenu');
         if (hamburgerBtn && navMenu) {
+            hamburgerBtn.addEventListener('click', () => {
+                navMenu.querySelector('ul').classList.toggle('show');
+            });
+        }
